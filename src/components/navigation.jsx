@@ -38,9 +38,17 @@ export default function Navigation({ activeSection, setActiveSection }) {
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         <button
           onClick={() => scrollToSection("home")}
-          className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2 group cursor-pointer"
         >
-          BP
+          <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center transform group-hover:scale-105 transition-transform">
+            <span className="text-white font-bold text-lg">BP</span>
+          </div>
+          <div className="hidden md:block">
+            <div className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+              Biswajit Padhan
+            </div>
+            <div className="text-xs text-muted-foreground">Full Stack Developer</div>
+          </div>
         </button>
         <div className="flex items-center gap-6">
           <div className="hidden md:flex gap-8">

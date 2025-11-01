@@ -1,13 +1,13 @@
-import { Moon, Sun } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(() => {
-    // Check localStorage or default to light
+    // Check localStorage or default to dark
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") || "light"
+      return localStorage.getItem("theme") || "dark"
     }
-    return "light"
+    return "dark"
   })
 
   useEffect(() => {
@@ -15,11 +15,11 @@ export default function ThemeToggle() {
     root.classList.remove("light", "dark")
     root.classList.add(theme)
     localStorage.setItem("theme", theme)
-  }, [theme])
+  }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"))
-  }
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   return (
     <button
@@ -33,5 +33,5 @@ export default function ThemeToggle() {
         <Sun size={20} className="text-foreground" />
       )}
     </button>
-  )
+  );
 }
