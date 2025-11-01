@@ -4,9 +4,9 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>&copy; 2025 Biswajit Padhan. All rights reserved.</p>
-          <p>
+          {/* <p>
             Built with <span className="text-primary">React</span> & <span className="text-primary">Vite</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>
