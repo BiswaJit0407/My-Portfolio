@@ -1,17 +1,63 @@
 import { ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react"
+import { useState, useEffect } from "react"
+
+function useTypingEffect(text, speed = 50, startTyping = true) {
+  const [displayedText, setDisplayedText] = useState("")
+  const [isComplete, setIsComplete] = useState(false)
+
+  useEffect(() => {
+    if (!startTyping) {
+      setDisplayedText("")
+      setIsComplete(false)
+      return
+    }
+
+    let index = 0
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText(text.slice(0, index + 1))
+        index++
+      } else {
+        setIsComplete(true)
+        clearInterval(interval)
+      }
+    }, speed)
+
+    return () => clearInterval(interval)
+  }, [text, speed, startTyping])
+
+  return { displayedText, isComplete }
+}
 
 export default function Hero() {
+  const name = "Biswajit Padhan"
+  const description = "I build modern web applications with the MERN stack, specializing in scalable backend systems and intuitive user interfaces. Currently at Ishvara Tech, crafting solutions that matter."
+  
+  const { displayedText: displayedName, isComplete: nameComplete } = useTypingEffect(name, 100)
+  const { displayedText: displayedDescription, isComplete: descriptionComplete } = useTypingEffect(
+    description, 
+    30, 
+    nameComplete
+  )
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-6">
       <div className="max-w-4xl w-full">
         <div className="space-y-6 mb-12">
           <div className="space-y-2">
-            <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-pretty">Biswajit Padhan</h1>
+            <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-pretty min-h-[5rem] flex items-center">
+              {displayedName}
+              {!nameComplete && (
+                <span className="inline-block w-1 h-16 md:h-20 bg-primary ml-2 animate-pulse"></span>
+              )}
+            </h1>
             <p className="text-2xl md:text-3xl text-primary font-light">Full Stack Developer</p>
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl text-pretty">
-            I build modern web applications with the MERN stack, specializing in scalable backend systems and intuitive
-            user interfaces. Currently at Ishvara Tech, crafting solutions that matter.
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl text-pretty min-h-[6rem]">
+            {displayedDescription}
+            {nameComplete && !descriptionComplete && (
+              <span className="inline-block w-0.5 h-5 bg-primary ml-1 animate-pulse"></span>
+            )}
           </p>
         </div>
 
