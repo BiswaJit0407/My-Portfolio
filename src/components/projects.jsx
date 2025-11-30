@@ -26,14 +26,16 @@ export default function Projects({ id, onView }) {
         "Engineered a fully functional MERN stack e-commerce website for football jerseys using React.js, Node.js, and MongoDB. Implemented core e-commerce features including product listing, advanced filtering, cart management, user authentication, and secure checkout. Designed a modern, responsive, and user-friendly interface tailored for sports fans.",
       tech: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS"],
       type: "Personal Project",
+      link: "https://jersy-store-frontend.vercel.app/",
     },
     {
-      title: "Food Delivery Website",
+      title: "Cafe Food Order Website",
       subtitle: "User-Friendly Food Delivery Platform",
       description:
         "Developed a user-friendly food delivery platform using React.js, enabling seamless menu browsing and order placement. Integrated an intuitive add-to-cart feature and a dynamic cart section, ensuring a smooth user experience. Designed with responsive layouts for optimal viewing across devices.",
       tech: ["React.js", "JavaScript (ES6+)", "HTML", "CSS", "REST API"],
       type: "Personal Project",
+      link: "https://cafeorder.vercel.app/login",
     },
   ]
 
@@ -49,7 +51,19 @@ export default function Projects({ id, onView }) {
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-2xl font-bold text-foreground">{project.title}</h3>
+                  <div className="flex items-center gap-3">
+                    <h3 className="text-2xl font-bold text-foreground">{project.title}</h3>
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium"
+                      >
+                        View Live →
+                      </a>
+                    )}
+                  </div>
                   <span className="text-xs font-medium px-3 py-1 bg-primary/20 text-primary rounded-full">
                     {project.type}
                   </span>
