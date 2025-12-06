@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react"
+import { ArrowRight, Github, Linkedin, Mail, Phone, FileText } from "lucide-react"
 import { useState, useEffect } from "react"
 
 function useTypingEffect(text, speed = 50, startTyping = true) {
@@ -75,6 +75,15 @@ export default function Hero() {
             className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
           >
             Get In Touch
+          </a>
+          <a
+            href={`${import.meta.env.BASE_URL}Biswajit-Padhan-CV-2025.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-colors"
+          >
+            <FileText size={18} />
+            Check My CV
           </a>
         </div>
 
