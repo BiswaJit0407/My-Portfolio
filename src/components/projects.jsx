@@ -35,7 +35,7 @@ export default function Projects({ id, onView }) {
         "Developed a user-friendly food delivery platform using React.js, enabling seamless menu browsing and order placement. Integrated an intuitive add-to-cart feature and a dynamic cart section, ensuring a smooth user experience. Designed with responsive layouts for optimal viewing across devices.",
       tech: ["React.js", "JavaScript (ES6+)", "HTML", "CSS", "REST API"],
       type: "Personal Project",
-      link: "https://cafeorder.vercel.app/login",
+      link: "https://cafeorder.vercel.app/",
     },
   ]
 
