@@ -17,7 +17,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Snowfall 
-        color="#dee4fd"
+        color="#3b82f6"
         snowflakeCount={200}
         style={{
           position: 'fixed',
