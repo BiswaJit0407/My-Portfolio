@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "homepage": "https://biswajit0407.github.io/My-Portfolio/",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
