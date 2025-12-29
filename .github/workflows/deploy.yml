@@ -25,7 +25,6 @@ jobs:
       
       - name: Install dependencies
         run: npm install
-        working-directory: My-Portfolio
       
       - name: Build
         env:
@@ -33,10 +32,9 @@ jobs:
           VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
           VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
         run: npm run build
-        working-directory: My-Portfolio
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./My-Portfolio/dist
+          publish_dir: ./dist
