@@ -1,138 +1,57 @@
-import { ArrowRight, Github, Linkedin, Mail, Phone, FileText } from "lucide-react"
-import { useState, useEffect } from "react"
+import { ArrowUpRight, Code2, FileText, Github, Linkedin, Mail, MapPin, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 
-function useTypingEffect(text, speed = 50, startTyping = true) {
-  const [displayedText, setDisplayedText] = useState("")
-  const [isComplete, setIsComplete] = useState(false)
-
-  useEffect(() => {
-    if (!startTyping) {
-      setDisplayedText("")
-      setIsComplete(false)
-      return
-    }
-
-    let index = 0
-    const interval = setInterval(() => {
-      if (index < text.length) {
-        setDisplayedText(text.slice(0, index + 1))
-        index++
-      } else {
-        setIsComplete(true)
-        clearInterval(interval)
-      }
-    }, speed)
-
-    return () => clearInterval(interval)
-  }, [text, speed, startTyping])
-
-  return { displayedText, isComplete }
-}
+const socials = [
+  { icon: Github, href: "https://github.com/BiswaJit0407", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/biswajit-padhan-64b935298/", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:biswajitpadhan2001@gmail.com", label: "Email" },
+]
 
 export default function Hero() {
-  const name = "Biswajit Padhan"
-  const description = "I build modern web applications with the MERN stack, specializing in scalable backend systems and intuitive user interfaces. Currently at Ishvara Tech, crafting solutions that matter."
-  
-  const { displayedText: displayedName, isComplete: nameComplete } = useTypingEffect(name, 100)
-  const { displayedText: displayedDescription, isComplete: descriptionComplete } = useTypingEffect(
-    description, 
-    30, 
-    nameComplete
-  )
-
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
-      {/* Background glowing orb */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5, scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/2 left-1/2 w-[30rem] h-[30rem] bg-primary/20 rounded-full blur-[100px] -z-10 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-      />
-      
-      <div className="max-w-4xl w-full relative z-10">
-        <div className="space-y-6 mb-12">
-          <div className="space-y-2">
-            <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-pretty min-h-[5rem] flex items-center">
-              {displayedName}
-              {!nameComplete && (
-                <span className="inline-block w-1 h-16 md:h-20 bg-primary ml-2 animate-pulse"></span>
-              )}
-            </h1>
-            <p className="text-2xl md:text-3xl text-primary font-light">Full Stack Developer</p>
+    <section id="home" className="hero-section relative flex min-h-[92vh] items-center overflow-hidden px-6 pb-20 pt-32">
+      <div className="hero-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-16 lg:grid-cols-[1.15fr_.85fr]">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }} className="relative z-10">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+            <Sparkles size={15} /> Full Stack Developer · MERN Stack
           </div>
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl text-pretty min-h-[6rem]">
-            {displayedDescription}
-            {nameComplete && !descriptionComplete && (
-              <span className="inline-block w-0.5 h-5 bg-primary ml-1 animate-pulse"></span>
-            )}
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[.28em] text-muted-foreground">Hello, I'm</p>
+          <h1 className="max-w-3xl text-5xl font-bold leading-[1.04] tracking-[-.055em] text-foreground sm:text-6xl lg:text-7xl">
+            Biswajit <span className="hero-gradient-text">Padhan.</span>
+          </h1>
+          <h2 className="mt-6 max-w-2xl text-xl font-medium leading-relaxed text-foreground/85 sm:text-2xl">I build digital experiences that feel as good as they work.</h2>
+          <p className="mt-5 max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
+            I build modern web applications with the MERN stack, specializing in scalable backend systems and intuitive user interfaces. Currently at Ishvara Tech, crafting solutions that matter.
           </p>
-        </div>
-
-        {/* CTA Buttons */}
-        <motion.div 
-          className="flex flex-col sm:flex-row gap-4 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={descriptionComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#projects"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-shadow"
-          >
-            View My Work
-            <ArrowRight size={18} />
-          </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href="#contact"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-card/50 backdrop-blur-md border border-white/10 text-foreground rounded-lg font-medium hover:border-primary/50 transition-colors"
-          >
-            Get In Touch
-          </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            href={`${import.meta.env.BASE_URL}Biswajit Padhan MERN STACK DEVELOPER.pdf`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-card/50 backdrop-blur-md border border-white/10 text-foreground rounded-lg font-medium hover:border-primary/50 transition-colors"
-          >
-            <FileText size={18} />
-            Check My CV
-          </motion.a>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <a href="#projects" className="primary-cta">Explore my work <ArrowUpRight size={18} /></a>
+            <a href="#contact" className="secondary-cta">Let's talk</a>
+            <a href={`${import.meta.env.BASE_URL}Biswajit Padhan MERN STACK DEVELOPER.pdf`} target="_blank" rel="noopener noreferrer" className="secondary-cta"><FileText size={17} /> View CV</a>
+          </div>
+          <div className="mt-10 flex items-center gap-5">
+            <div className="flex items-center gap-3">
+              {socials.map(({ icon: Icon, href, label }) => <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} aria-label={label} className="social-link"><Icon size={18} /></a>)}
+            </div>
+            <span className="h-7 w-px bg-border" />
+            <span className="inline-flex items-center gap-2 text-sm text-muted-foreground"><MapPin size={15} className="text-primary" /> Bhubaneswar, India</span>
+          </div>
         </motion.div>
-
-        {/* Social Links */}
-        <motion.div 
-          className="flex gap-6 pb-8"
-          initial={{ opacity: 0 }}
-          animate={descriptionComplete ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {[
-            { icon: Github, href: "https://github.com/BiswaJit0407", label: "GitHub" },
-            { icon: Linkedin, href: "https://www.linkedin.com/in/biswajit-padhan-64b935298/", label: "LinkedIn" },
-            { icon: Mail, href: "mailto:biswajitpadhan2001@gmail.com", label: "Email" },
-            { icon: Phone, href: "tel:+919348574287", label: "Phone" }
-          ].map((social, index) => (
-            <motion.a
-              key={index}
-              whileHover={{ scale: 1.2, rotate: 5, color: "#3b82f6" }}
-              whileTap={{ scale: 0.9 }}
-              href={social.href}
-              target={social.href.startsWith("http") ? "_blank" : undefined}
-              rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="text-muted-foreground transition-colors"
-              aria-label={social.label}
-            >
-              <social.icon size={24} />
-            </motion.a>
-          ))}
+        <motion.div initial={{ opacity: 0, scale: .94, y: 18 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: .8, delay: .15 }} className="relative mx-auto w-full max-w-[440px]">
+          <div className="hero-card relative overflow-hidden rounded-[2rem] border border-white/10 p-7 shadow-2xl sm:p-9">
+            <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/25 blur-3xl" />
+            <div className="relative">
+              <div className="mb-10 flex items-center justify-between"><span className="text-xs font-semibold uppercase tracking-[.24em] text-muted-foreground">Developer profile</span><span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Building things</span></div>
+              <div className="mx-auto flex aspect-square max-w-[230px] items-center justify-center rounded-[2rem] border border-primary/30 bg-gradient-to-br from-primary/25 via-slate-900 to-violet-500/20 shadow-[0_0_80px_rgba(59,130,246,.16)]">
+                <div className="text-center"><div className="font-mono text-7xl font-bold tracking-[-.12em] text-white">BP<span className="text-sky-400">.</span></div><div className="mt-3 text-xs uppercase tracking-[.35em] text-slate-400">Code · Create · Solve</div></div>
+              </div>
+              <div className="mt-9 grid grid-cols-3 gap-3">
+                {[["1+", "Year experience"], ["MERN", "Core stack"], ["6", "Featured projects"]].map(([value,label]) => <div key={label} className="rounded-2xl border border-white/10 bg-white/[.04] p-3 text-center"><div className="text-xl font-bold text-white sm:text-2xl">{value}</div><div className="mt-1 text-[10px] leading-4 text-slate-400 sm:text-xs">{label}</div></div>)}
+              </div>
+              <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-5 text-sm text-slate-400"><span className="inline-flex items-center gap-2"><Code2 size={15} className="text-sky-400" /> Full-stack engineering</span><ArrowUpRight size={16} /></div>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute -bottom-5 -left-6 -z-10 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
         </motion.div>
       </div>
     </section>

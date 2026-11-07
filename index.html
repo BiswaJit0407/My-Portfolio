@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/darklogo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Biswajit Padhan - Full Stack Developer specializing in MERN stack" />
+    <meta name="theme-color" content="#101827" />
+    <meta name="description" content="Biswajit Padhan — Full Stack Developer building modern web applications with the MERN stack." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <title>Biswajit Padhan - Full Stack Developer</title>
+    <title>Biswajit Padhan — Full Stack Developer</title>
     <script>
-      // Initialize theme before page load to prevent flash
       const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.classList.add(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
     </script>
   </head>
   <body>
