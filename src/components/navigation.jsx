@@ -1,102 +1,54 @@
-"use client"
-
 import { useEffect, useState } from "react"
+import { Menu, X } from "lucide-react"
 import ThemeToggle from "./theme-toggle"
 import darkLogo from "/darklogo.png"
 import lightLogo from "/lightlogo.png"
 
+const sections = ["about", "skills", "experience", "projects", "contact"]
+
 export default function Navigation({ activeSection, setActiveSection }) {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark") ? "dark" : "light"
-    }
-    return "dark"
-  })
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [theme, setTheme] = useState(() => typeof window !== "undefined" && !document.documentElement.classList.contains("dark") ? "light" : "dark")
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 24)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   useEffect(() => {
-    // Listen for theme changes
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark")
-      setTheme(isDark ? "dark" : "light")
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    })
-    
+    const observer = new MutationObserver(() => setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light"))
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
     return () => observer.disconnect()
   }, [])
 
-  const sections = ["about", "skills", "experience", "projects", "contact"]
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id)
     if (element) {
-      const navHeight = 80 // Approximate navbar height
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navHeight
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
-      setActiveSection(sectionId)
+      window.scrollTo({ top: element.getBoundingClientRect().top + window.scrollY - 88, behavior: "smooth" })
+      setActiveSection(id)
+      setMobileOpen(false)
     }
   }
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md border-b border-border" : ""}`}
-    >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        <button
-          onClick={() => scrollToSection("home")}
-          className="flex items-center gap-3 group cursor-pointer"
-        >
-          {/* Logo image changes based on theme */}
-          <div className="relative w-12 h-12 transform group-hover:scale-105 transition-all duration-300">
-            <img 
-              src={theme === "dark" ? darkLogo : lightLogo}
-              alt="Biswajit Padhan Logo"
-              className="w-full h-full object-contain drop-shadow-lg"
-            />
-          </div>
-          {/* <div className="hidden md:block">
-            <div className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
-              Biswajit Padhan
-            </div>
-            <div className={`text-xs transition-colors ${
-              theme === "dark" ? "text-muted-foreground" : "text-gray-600"
-            }`}>
-              Full Stack Developer
-            </div>
-          </div> */}
+    <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${isScrolled ? "border-b border-border/70 bg-background/85 shadow-lg shadow-black/5 backdrop-blur-2xl" : "bg-transparent"}`}>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+        <button onClick={() => scrollToSection("home")} className="flex items-center gap-3" aria-label="Back to top">
+          <img src={theme === "dark" ? darkLogo : lightLogo} alt="Biswajit Padhan" className="h-11 w-11 object-contain" />
+          <span className="hidden text-left sm:block"><span className="block text-sm font-bold tracking-tight text-foreground">Biswajit Padhan</span><span className="block text-[11px] text-muted-foreground">Full Stack Developer</span></span>
         </button>
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex gap-8">
-            {sections.map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section)}
-                className={`text-sm font-medium transition-colors capitalize ${activeSection === section ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                {section}
-              </button>
-            ))}
-          </div>
+        <div className="hidden items-center gap-1 md:flex">
+          {sections.map(section => <button key={section} onClick={() => scrollToSection(section)} className={`nav-link capitalize ${activeSection === section ? "nav-link-active" : ""}`}>{section}</button>)}
+          <span className="mx-2 h-6 w-px bg-border" /><ThemeToggle />
+        </div>
+        <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="social-link" aria-label={mobileOpen ? "Close menu" : "Open menu"}>{mobileOpen ? <X size={19} /> : <Menu size={19} />}</button>
         </div>
       </div>
+      {mobileOpen && <div className="border-t border-border/70 bg-background/95 px-6 py-4 backdrop-blur-2xl md:hidden"><div className="mx-auto flex max-w-6xl flex-col gap-1">{sections.map(section => <button key={section} onClick={() => scrollToSection(section)} className={`rounded-xl px-4 py-3 text-left text-sm font-medium capitalize transition-colors ${activeSection === section ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-secondary hover:text-foreground"}`}>{section}</button>)}</div></div>}
     </nav>
   )
 }
