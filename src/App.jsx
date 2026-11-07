@@ -1,7 +1,4 @@
-"use client"
-
 import { useState } from "react"
-import Snowfall from "react-snowfall"
 import Navigation from "@/components/navigation"
 import Hero from "@/components/hero"
 import About from "@/components/about"
@@ -13,20 +10,10 @@ import Footer from "@/components/footer"
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("about")
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Snowfall 
-        color="#3b82f6"
-        snowflakeCount={200}
-        style={{
-          position: 'fixed',
-          width: '100vw',
-          height: '100vh',
-          zIndex: 9999,
-          pointerEvents: 'none'
-        }}
-      />
+      <div className="site-glow site-glow-one" aria-hidden="true" />
+      <div className="site-glow site-glow-two" aria-hidden="true" />
       <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
       <main>
         <Hero />
