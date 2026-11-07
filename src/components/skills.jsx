@@ -19,7 +19,6 @@ const iconMap = {
   "SQL": devicon("mysql"),
   "Supabase": "https://cdn.simpleicons.org/supabase/3FCF8E",
   "Prisma ORM": "https://cdn.simpleicons.org/prisma/FFFFFF",
-  "AWS S3": wordmark("amazonwebservices"),
   "BullMQ": "https://cdn.simpleicons.org/redis/DC382D",
   "Git": devicon("git"),
   "GitHub": "https://cdn.simpleicons.org/github/FFFFFF",
@@ -93,6 +92,7 @@ export default function Skills({ id, onView }) {
                 {items.map((skill) => {
                   const Icon = fallbackIcons[skill]
                   const logo = iconMap[skill]
+                  const showIcon = skill !== "AWS S3"
                   return (
                     <motion.div
                       key={skill}
@@ -100,13 +100,15 @@ export default function Skills({ id, onView }) {
                       className="flex min-h-[66px] items-center gap-3 rounded-xl border border-border/80 bg-background/65 px-3 py-3 transition-colors hover:border-primary/40 hover:bg-primary/[.045]"
                       title={skill}
                     >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-secondary/70 p-1.5">
-                        {logo ? (
-                          <img src={logo} alt={`${skill} logo`} loading="lazy" className="h-full w-full object-contain" />
-                        ) : (
-                          <Icon size={19} strokeWidth={1.8} className="text-primary" aria-hidden="true" />
-                        )}
-                      </span>
+                      {showIcon && (
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-secondary/70 p-1.5">
+                          {logo ? (
+                            <img src={logo} alt={`${skill} logo`} loading="lazy" className="h-full w-full object-contain" />
+                          ) : (
+                            <Icon size={19} strokeWidth={1.8} className="text-primary" aria-hidden="true" />
+                          )}
+                        </span>
+                      )}
                       <span className="text-xs font-medium leading-4 text-foreground sm:text-sm">{skill}</span>
                     </motion.div>
                   )
